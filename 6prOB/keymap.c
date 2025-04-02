@@ -506,3 +506,20 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
       return false;
   }
 }
+
+bool get_chordal_hold(uint16_t tap_hold_keycode, keyrecord_t* tap_hold_record, 
+                      uint16_t other_keycode, keyrecord_t* other_record) {
+
+  // Return true to allow chord, return false to settle as tapped.
+  // By default we do not settle as tapped, except for shifting a key
+  // on the same hand.
+  switch (tap_hold_keycode) {
+    case MT(MOD_RSFT, KC_QUOTE):
+    case MT(MOD_LSFT, KC_A):
+      // In these cases, settle as tapped if on same hand (default chordal hold behavior)
+      return get_chordal_hold_default(tap_hold_record, other_record);
+    default:
+      // Default is to allow the chord.
+      return true;
+  }
+}
