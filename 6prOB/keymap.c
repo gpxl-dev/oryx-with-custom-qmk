@@ -72,8 +72,6 @@ combo_t key_combos[COMBO_COUNT] = {
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case MT(MOD_LSFT, KC_A):
-            return TAPPING_TERM -30;
         case MT(MOD_LCTL, KC_S):
             return TAPPING_TERM -10;
         case LT(3,KC_D):
