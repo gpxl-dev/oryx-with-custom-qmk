@@ -356,6 +356,12 @@ tap_dance_action_t tap_dance_actions[] = {
 
 
 // Custom QMK
+// ref: https://docs.qmk.fm/tap_hold#hold-on-other-key-press
+
+/* If you press a dual-role key, press another key, and then release the
+dual-role key, all within the tapping term, by default the dual-role key will
+perform its tap action. If the HOLD_ON_OTHER_KEY_PRESS option is enabled, the
+dual-role key will perform its hold action instead. */
 bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case MT(MOD_RSFT, KC_QUOTE):
@@ -365,7 +371,7 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
   }
 }
 
-bool get_chordal_hold(uint16_t tap_hold_keycode, keyrecord_t* tap_hold_record, 
+bool get_chordal_hold(uint16_t tap_hold_keycode, keyrecord_t* tap_hold_record,
                       uint16_t other_keycode, keyrecord_t* other_record) {
 
   // Return true to allow chord, return false to settle as tapped.
@@ -374,6 +380,8 @@ bool get_chordal_hold(uint16_t tap_hold_keycode, keyrecord_t* tap_hold_record,
   switch (tap_hold_keycode) {
     case MT(MOD_RSFT, KC_QUOTE):
     case MT(MOD_LSFT, KC_A):
+    case MT(MOD_LSFT, KC_A): // use chordal hold for the E key layer switch for fast typing "es".
+    case MT(MOD_RGUI, KC_SPACE): // use chordal hold behaviour on the right space/cmd modifier to prevent cmd + M
       // In these cases, settle as tapped if on same hand (default chordal hold behavior)
       return get_chordal_hold_default(tap_hold_record, other_record);
     default:
