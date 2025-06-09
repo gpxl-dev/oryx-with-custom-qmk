@@ -374,7 +374,7 @@ bool get_chordal_hold(uint16_t tap_hold_keycode, keyrecord_t* tap_hold_record,
   switch (tap_hold_keycode) {
     case MT(MOD_RSFT, KC_QUOTE):
     case MT(MOD_LSFT, KC_A):
-    case MT(MOD_LSFT, KC_A): // use chordal hold for the E key layer switch for fast typing "es".
+    case LT(4,KC_E): // use chordal hold for the E key layer switch for fast typing "es".
     case MT(MOD_RGUI, KC_SPACE): // use chordal hold behaviour on the right space/cmd modifier to prevent cmd + M
       // In these cases, settle as tapped if on same hand (default chordal hold behavior)
       return get_chordal_hold_default(tap_hold_record, other_record);
