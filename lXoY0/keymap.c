@@ -211,35 +211,27 @@ bool rgb_matrix_indicators_user(void) {
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  // If a key is pressed, update the vim sequence state
-  if (record->event.pressed) {
-    switch (vim_seq_state) {
-      case VIM_SEQ_ESC:
-        if (keycode == KC_COLN) {
-          vim_seq_state = VIM_SEQ_ESC_COLON;
-        } else {
-          vim_seq_state = VIM_SEQ_NONE;
-        }
-        break;
-      case VIM_SEQ_ESC_COLON:
-        if (keycode == KC_DQUO) {
-          // Replace " with w
-          tap_code(KC_W);
-          vim_seq_state = VIM_SEQ_NONE;
-          return false; // Skip default handling
-        } else {
-          vim_seq_state = VIM_SEQ_NONE;
-        }
-        break;
-      default:
-        vim_seq_state = VIM_SEQ_NONE;
-        break;
-    }
+    // This custom if statement remaps <esc>:" to <esc>:w - a common typo for me when trying to save a file in vim
+    if (record->event.pressed) {
+        // Keys that should be ignored by the sequence detection. (because they're modifiers that facilitate the sequence)
+        bool should_ignore = (keycode == MO(1) || keycode == LT(1, KC_BSPC) || keycode == MT(MOD_LGUI, KC_ENTER) || keycode == MT(MOD_RGUI, KC_SPACE));
 
-    if (keycode == KC_ESCAPE) {
-      vim_seq_state = VIM_SEQ_ESC;
+        if (should_ignore) {
+            // Don't reset state for these keys.
+        } else if (keycode == KC_ESCAPE) {
+            vim_seq_state = VIM_SEQ_ESC;
+        } else if (vim_seq_state == VIM_SEQ_ESC && keycode == KC_COLN) {
+            vim_seq_state = VIM_SEQ_ESC_COLON;
+        } else if (vim_seq_state == VIM_SEQ_ESC_COLON && keycode == KC_DQUO) {
+            vim_seq_state = VIM_SEQ_NONE;
+            tap_code(KC_W);
+            return false; // Consume the event
+        } else {
+            vim_seq_state = VIM_SEQ_NONE;
+        }
     }
-  }
+    // end custom statement
+
 
   switch (keycode) {
     case ST_MACRO_0:
