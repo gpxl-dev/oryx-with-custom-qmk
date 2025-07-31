@@ -6,6 +6,16 @@
 #define ZSA_SAFE_RANGE SAFE_RANGE
 #endif
 
+// Custom state for the ESC : W fix
+// This state machine checks for the sequence ESC, :, "
+// and replaces " with W.
+enum {
+    VIM_SEQ_NONE,
+    VIM_SEQ_ESC,
+    VIM_SEQ_ESC_COLON
+};
+static uint8_t vim_seq_state = VIM_SEQ_NONE;
+
 enum custom_keycodes {
   RGB_SLD = ZSA_SAFE_RANGE,
   ST_MACRO_0,
@@ -201,6 +211,36 @@ bool rgb_matrix_indicators_user(void) {
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  // If a key is pressed, update the vim sequence state
+  if (record->event.pressed) {
+    switch (vim_seq_state) {
+      case VIM_SEQ_ESC:
+        if (keycode == KC_COLN) {
+          vim_seq_state = VIM_SEQ_ESC_COLON;
+        } else {
+          vim_seq_state = VIM_SEQ_NONE;
+        }
+        break;
+      case VIM_SEQ_ESC_COLON:
+        if (keycode == KC_DQUO) {
+          // Replace " with w
+          tap_code(KC_W);
+          vim_seq_state = VIM_SEQ_NONE;
+          return false; // Skip default handling
+        } else {
+          vim_seq_state = VIM_SEQ_NONE;
+        }
+        break;
+      default:
+        vim_seq_state = VIM_SEQ_NONE;
+        break;
+    }
+
+    if (keycode == KC_ESCAPE) {
+      vim_seq_state = VIM_SEQ_ESC;
+    }
+  }
+
   switch (keycode) {
     case ST_MACRO_0:
     if (record->event.pressed) {
@@ -425,3 +465,52 @@ tap_dance_action_t tap_dance_actions[] = {
         [DANCE_2] = ACTION_TAP_DANCE_FN_ADVANCED(on_dance_2, dance_2_finished, dance_2_reset),
         [DANCE_3] = ACTION_TAP_DANCE_FN_ADVANCED(on_dance_3, dance_3_finished, dance_3_reset),
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Custom QMK
+// ref: https://docs.qmk.fm/tap_hold#hold-on-other-key-press
+
+/* If you press a dual-role key, press another key, and then release the
+dual-role key, all within the tapping term, by default the dual-role key will
+perform its tap action. If the HOLD_ON_OTHER_KEY_PRESS option is enabled, the
+dual-role key will perform its hold action instead. */
+bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case MT(MOD_RSFT, KC_QUOTE):
+      return true;
+    default:
+      return false;
+  }
+}
+
+bool get_chordal_hold(uint16_t tap_hold_keycode, keyrecord_t* tap_hold_record,
+                      uint16_t other_keycode, keyrecord_t* other_record) {
+
+  // Return true to allow chord, return false to settle as tapped.
+  // By default we do not settle as tapped, except for shifting a key
+  // on the same hand.
+  switch (tap_hold_keycode) {
+    case MT(MOD_RSFT, KC_QUOTE):
+    case MT(MOD_LSFT, KC_A):
+    case LT(4,KC_E): // use chordal hold for the E key layer switch for fast typing "es".
+    case MT(MOD_RGUI, KC_SPACE): // use chordal hold behaviour on the right space/cmd modifier to prevent cmd + M
+      // In these cases, settle as tapped if on same hand (default chordal hold behavior)
+      return get_chordal_hold_default(tap_hold_record, other_record);
+    default:
+      // Default is to allow the chord.
+      return true;
+  }
+}
