@@ -8,4 +8,4 @@ SPACE_CADET_ENABLE = no
 COMBO_ENABLE = yes
 LAYER_LOCK_ENABLE = yes
 LEADER_ENABLE = yes
-SRC += ../features/casemodes.c
+SRC += features/casemodes.c
