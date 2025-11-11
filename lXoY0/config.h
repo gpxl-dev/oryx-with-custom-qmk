@@ -46,20 +46,9 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 // Adding custom QMK
 #define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
 #define CHORDAL_HOLD
-#define LEADER_NO_TIMEOUT
 #define LEADER_PER_KEY_TIMING
 #define LEADER_TIMEOUT 220
+#define LEADER_NO_TIMEOUT
