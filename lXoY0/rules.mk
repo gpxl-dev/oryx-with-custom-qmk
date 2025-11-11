@@ -9,3 +9,4 @@ COMBO_ENABLE = yes
 LAYER_LOCK_ENABLE = yes
 LEADER_ENABLE = yes
 SRC += features/casemodes.c
+CAPS_WORD_ENABLE = no
