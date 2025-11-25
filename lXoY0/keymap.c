@@ -501,7 +501,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             register_code(registered_key);
             set_mods(mods);
         } else { // on key release
-            unregister_code(registered_key)
+            unregister_code(registered_key);
         }
         return false; // consume event
 
