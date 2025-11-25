@@ -513,7 +513,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
 
     /** This block turns shift + backspace into delete */
-    case KC_BSPC: // backspace
+    case LT(1, KC_BSPC): // backspace
         static uint16_t registered_key = KC_NO;
         if (record->event.pressed) { // on keypress
             const uint8_t mods = get_mods(); // modifiers
