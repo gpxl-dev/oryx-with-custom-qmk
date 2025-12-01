@@ -512,27 +512,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         return false;
 
-    /** This block turns shift + backspace into delete */
-    case LT(1, KC_BSPC): // backspace
-        static uint16_t registered_key = KC_NO;
-        if (record->event.pressed) { // on keypress
-            const uint8_t mods = get_mods(); // modifiers
-            const uint8_t shift_mods = mods & MOD_MASK_SHIFT; // at least one shift key is held (this takes just the left and right shift bits)
-            if (shift_mods && shift_mods != MOD_MASK_SHIFT) { // This condition checks that only one shift key is held, not both
-                // Releases shift and triggers delete only
-                registered_key = KC_DEL;
-                unregister_mods(MOD_MASK_SHIFT);
-                // otherwise, if both shifts are held when backspace is pressed, we get shift + backspace (to preserve ability to use shift bkspc kb shortcuts)
-            } else {
-                registered_key = KC_BSPC;
-            }
-            register_code(registered_key);
-            set_mods(mods);
-        } else { // on key release
-            unregister_code(registered_key);
-        }
-        return false; // consume event
-
   }
 
   // CASE MODES ADDITION (for camelCase, snake case, etc.)
