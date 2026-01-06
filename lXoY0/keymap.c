@@ -558,7 +558,7 @@ bool get_chordal_hold(uint16_t tap_hold_keycode, keyrecord_t* tap_hold_record,
     case LT(4,KC_E): // use chordal hold for the E key layer switch for fast typing "es".
     case MT(MOD_LGUI, KC_ENTER): // Require 500ms hold for Cmd+M shortcut
     case MT(MOD_RGUI, KC_SPACE): // use chordal hold behaviour on the right space/cmd modifier to prevent cmd + M
-      if ((other_keycode == KC_M || other_keycode == MT(MOD_RALT, KC_M)) && cmd_timer && timer_elapsed32(cmd_timer) < 500) {
+      if ((other_keycode == KC_M || other_keycode == MT(MOD_RALT, KC_M)) && cmd_timer && timer_elapsed32(cmd_timer) < 1000) {
           return false; // Settle as tap (Space/Enter)
       }
       // In these cases, settle as tapped if on same hand (default chordal hold behavior)
