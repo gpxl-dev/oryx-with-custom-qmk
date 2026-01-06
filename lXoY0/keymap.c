@@ -403,15 +403,8 @@ tap_dance_action_t tap_dance_actions[] = {
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    // This first IF block prevents accidetnal Cmd+M presses when trying to press just M quickly when typing.
-    if (keycode == MT(MOD_LGUI, KC_ENTER) || keycode == MT(MOD_RGUI, KC_SPACE)) {
+    if (keycode == MT(MOD_LGUI, KC_ENTER) || keycode == MT(MOD_RGUI, KC_SPACE)) { // start a timer when Cmd is pressed
         cmd_timer = record->event.pressed ? timer_read32() : 0; // Track Cmd press time
-    }
-    if (keycode == MT(MOD_RALT, KC_M) && record->event.pressed && cmd_timer && timer_elapsed32(cmd_timer) < 500) { // 500ms threshold for this cmd + M combo specifically
-        if (get_mods() & MOD_MASK_GUI) { // If Cmd is held but for less than 500ms
-            tap_code(KC_M); // Send M without Cmd
-            return false; // Intercept shortcut
-        }
     }
 
     // This custom if statement remaps <esc>:" to <esc>:w - a common typo for me when trying to save a file in vim
@@ -563,7 +556,11 @@ bool get_chordal_hold(uint16_t tap_hold_keycode, keyrecord_t* tap_hold_record,
     case MT(MOD_RSFT, KC_QUOTE):
     case MT(MOD_LSFT, KC_A):
     case LT(4,KC_E): // use chordal hold for the E key layer switch for fast typing "es".
+    case MT(MOD_LGUI, KC_ENTER): // Require 500ms hold for Cmd+M shortcut
     case MT(MOD_RGUI, KC_SPACE): // use chordal hold behaviour on the right space/cmd modifier to prevent cmd + M
+      if ((other_keycode == KC_M || other_keycode == MT(MOD_RALT, KC_M)) && cmd_timer && timer_elapsed32(cmd_timer) < 500) {
+          return false; // Settle as tap (Space/Enter)
+      }
       // In these cases, settle as tapped if on same hand (default chordal hold behavior)
       return get_chordal_hold_default(tap_hold_record, other_record);
     default:
