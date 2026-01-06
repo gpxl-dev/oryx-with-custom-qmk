@@ -16,6 +16,7 @@ enum {
     VIM_SEQ_ESC_COLON
 };
 static uint8_t vim_seq_state = VIM_SEQ_NONE;
+static uint32_t cmd_timer = 0; // Timer for Command hold duration
 
 enum custom_keycodes {
   RGB_SLD = ZSA_SAFE_RANGE,
@@ -402,6 +403,17 @@ tap_dance_action_t tap_dance_actions[] = {
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    // This first IF block prevents accidetnal Cmd+M presses when trying to press just M quickly when typing.
+    if (keycode == MT(MOD_LGUI, KC_ENTER) || keycode == MT(MOD_RGUI, KC_SPACE)) {
+        cmd_timer = record->event.pressed ? timer_read32() : 0; // Track Cmd press time
+    }
+    if (keycode == MT(MOD_RALT, KC_M) && record->event.pressed && cmd_timer && timer_elapsed32(cmd_timer) < 500) { // 500ms threshold for this cmd + M combo specifically
+        if (get_mods() & MOD_MASK_GUI) { // If Cmd is held but for less than 500ms
+            tap_code(KC_M); // Send M without Cmd
+            return false; // Intercept shortcut
+        }
+    }
+
     // This custom if statement remaps <esc>:" to <esc>:w - a common typo for me when trying to save a file in vim
     if (record->event.pressed) { // on key press
         // Keys that should be ignored by the sequence detection. (because they're modifiers that facilitate the sequence)
