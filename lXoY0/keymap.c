@@ -22,9 +22,9 @@ enum tap_dance_codes {
   DANCE_4,
 };
 
-#define DUAL_FUNC_0 LT(15, KC_F18)
-#define DUAL_FUNC_1 LT(2, KC_O)
-#define DUAL_FUNC_2 LT(15, KC_F10)
+#define DUAL_FUNC_0 LT(3, KC_Q)
+#define DUAL_FUNC_1 LT(14, KC_L)
+#define DUAL_FUNC_2 LT(11, KC_F21)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -279,7 +279,8 @@ void dance_0_finished(tap_dance_state_t *state, void *user_data) {
     switch (dance_state[0].step) {
         case SINGLE_TAP: register_code16(KC_Z); break;
         case SINGLE_HOLD: register_code16(LSFT(KC_F20)); break;
-        case DOUBLE_TAP: register_code16(LCTL(LSFT(KC_F20))); break;
+        case DOUBLE_TAP: register_code16(KC_Z); register_code16(KC_Z); break;
+        case DOUBLE_HOLD: register_code16(LCTL(LSFT(KC_F20))); break;
         case DOUBLE_SINGLE_TAP: tap_code16(KC_Z); register_code16(KC_Z);
     }
 }
@@ -289,7 +290,8 @@ void dance_0_reset(tap_dance_state_t *state, void *user_data) {
     switch (dance_state[0].step) {
         case SINGLE_TAP: unregister_code16(KC_Z); break;
         case SINGLE_HOLD: unregister_code16(LSFT(KC_F20)); break;
-        case DOUBLE_TAP: unregister_code16(LCTL(LSFT(KC_F20))); break;
+        case DOUBLE_TAP: unregister_code16(KC_Z); break;
+        case DOUBLE_HOLD: unregister_code16(LCTL(LSFT(KC_F20))); break;
         case DOUBLE_SINGLE_TAP: unregister_code16(KC_Z); break;
     }
     dance_state[0].step = 0;
