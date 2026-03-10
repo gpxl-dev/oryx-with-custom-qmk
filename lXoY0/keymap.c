@@ -446,6 +446,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         cmd_timer = record->event.pressed ? timer_read32() : 0; // Track Cmd press time
     }
 
+    if (record->event.pressed && (caps_word_enabled() || get_xcase_state() != XCASE_OFF)) {
+        if (keycode == KC_ESCAPE) {
+            disable_caps_word();
+            disable_xcase();
+        }
+    }
+
     // Force M to be a tap without CMD if CMD was pressed very recently (prevent accidental Cmd+M)
     if (keycode == MT(MOD_RALT, KC_M) && record->event.pressed) {
         if (cmd_timer != 0 && timer_elapsed32(cmd_timer) < 800) {
@@ -566,7 +573,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case CAPSWORD:
         if (record->event.pressed) {
-            toggle_caps_word();
+            if (caps_word_enabled() || get_xcase_state() != XCASE_OFF) {
+                disable_caps_word();
+                disable_xcase();
+            } else {
+                toggle_caps_word();
+            }
         }
         return false;
 
