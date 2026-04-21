@@ -22,16 +22,16 @@ enum tap_dance_codes {
   DANCE_4,
 };
 
-#define DUAL_FUNC_0 LT(3, KC_Q)
-#define DUAL_FUNC_1 LT(14, KC_L)
-#define DUAL_FUNC_2 LT(11, KC_F21)
+#define DUAL_FUNC_0 LT(12, KC_F17)
+#define DUAL_FUNC_1 LT(3, KC_R)
+#define DUAL_FUNC_2 LT(15, KC_F17)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
     KC_ESCAPE,      KC_1,           KC_2,           KC_3,           KC_4,           KC_5,                                           KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_CAPS,        
     KC_CAPS,        KC_Q,           KC_W,           LT(4, KC_E),    LT(7, KC_R),    KC_T,                                           KC_Y,           ALL_T(KC_U),    KC_I,           MT(MOD_RCTL, KC_O),KC_P,           KC_BSPC,        
     KC_TAB,         MT(MOD_LSFT, KC_A),MT(MOD_LCTL, KC_S),LT(3, KC_D),    ALL_T(KC_F),    MEH_T(KC_G),                                    KC_H,           KC_J,           KC_K,           KC_L,           KC_RIGHT_SHIFT, KC_QUOTE,       
-    KC_LEFT_CTRL,   TD(DANCE_0),    KC_X,           KC_C,           MT(MOD_LALT, KC_V),LT(2, KC_B),                                    KC_N,           MT(MOD_RALT, KC_M),KC_COMMA,       DUAL_FUNC_0,    MT(MOD_RALT, KC_SLASH),TD(DANCE_1),    
+    KC_LEFT_CTRL,   TD(DANCE_0),    KC_X,           KC_C,           MT(MOD_LALT, KC_V),LT(2, KC_B),                                    LT(2, KC_N),    MT(MOD_RALT, KC_M),KC_COMMA,       DUAL_FUNC_0,    MT(MOD_RALT, KC_SLASH),TD(DANCE_1),    
                                                     MT(MOD_LGUI, KC_ENTER),MO(1),                                          LT(1, KC_BSPC), MT(MOD_RGUI, KC_SPACE)
   ),
   [1] = LAYOUT_voyager(
@@ -130,6 +130,8 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM + 200;
         case KC_RIGHT_SHIFT:
             return TAPPING_TERM -30;
+        case LT(2, KC_N):
+            return TAPPING_TERM + 60;
         case LT(1, KC_BSPC):
             return TAPPING_TERM -25;
         case MT(MOD_RGUI, KC_SPACE):
@@ -225,7 +227,6 @@ bool rgb_matrix_indicators_user(void) {
 
   return true;
 }
-
 
 
 typedef struct {
