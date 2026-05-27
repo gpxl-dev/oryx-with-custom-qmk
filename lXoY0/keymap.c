@@ -35,9 +35,9 @@ enum tap_dance_codes {
   DANCE_4,
 };
 
-#define DUAL_FUNC_0 LT(12, KC_F17)
-#define DUAL_FUNC_1 LT(3, KC_R)
-#define DUAL_FUNC_2 LT(15, KC_F17)
+#define DUAL_FUNC_0 LT(13, KC_U)
+#define DUAL_FUNC_1 LT(6, KC_F14)
+#define DUAL_FUNC_2 LT(3, KC_F8)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -48,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     MT(MOD_LGUI, KC_ENTER),MO(1),                                          LT(1, KC_BSPC), MT(MOD_RGUI, KC_SPACE)
   ),
   [1] = LAYOUT_voyager(
-    KC_ESCAPE,      ST_MACRO_0,     KC_AT,          UK_PND,         KC_DLR,         KC_COMMA,                                       KC_F6,          KC_F7,          KC_COMMA,       KC_DOT,         KC_F10,         TO(3),
+    KC_ESCAPE,      ST_MACRO_0,     KC_AT,          UK_PND,         KC_DLR,         LALT(LSFT(KC_8)),                                KC_F6,          KC_F7,          KC_COMMA,       KC_DOT,         KC_F10,         TO(3),          
     KC_QUOTE,       KC_GRAVE,       KC_DQUO,        KC_LABK,        KC_RABK,        KC_AMPR,                                        KC_UNDS,        KC_LCBR,        KC_RCBR,        KC_SCLN,        KC_PERC,        KC_F12,
     KC_BSLS,        KC_AT,          KC_PLUS,        KC_MINUS,       KC_EQUAL,       KC_EXLM,                                        KC_SCLN,        KC_LPRN,        KC_RPRN,        KC_COLN,        KC_QUES,        KC_DLR,
     LCTL(UK_GRV),   KC_CIRC,        KC_DLR,         LALT(KC_3),     KC_ASTR,        KC_PIPE,                                        KC_TILD,        KC_LBRC,        KC_RBRC,        KC_SLASH,       LCTL(RGUI(KC_SPACE)),ST_MACRO_1,
