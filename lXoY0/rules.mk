@@ -9,3 +9,5 @@ LAYER_LOCK_ENABLE = yes
 LEADER_ENABLE = yes
 SRC += features/casemodes.c
 CAPS_WORD_ENABLE = no
+PRECISION_TRACKPAD_ENABLE = yes
+PRECISION_TRACKPAD_DRIVER = navigator_trackpad
