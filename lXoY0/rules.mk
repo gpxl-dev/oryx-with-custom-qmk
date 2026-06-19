@@ -11,3 +11,4 @@ SRC += features/casemodes.c
 CAPS_WORD_ENABLE = no
 PRECISION_TRACKPAD_ENABLE = yes
 PRECISION_TRACKPAD_DRIVER = navigator_trackpad
+POINTING_DEVICE_DRIVER = custom
