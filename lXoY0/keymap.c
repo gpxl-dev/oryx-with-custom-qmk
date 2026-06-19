@@ -22,9 +22,9 @@ enum tap_dance_codes {
   DANCE_4,
 };
 
-#define DUAL_FUNC_0 LT(12, KC_X)
-#define DUAL_FUNC_1 LT(10, KC_W)
-#define DUAL_FUNC_2 LT(3, KC_F3)
+#define DUAL_FUNC_0 LT(14, KC_Y)
+#define DUAL_FUNC_1 LT(14, KC_1)
+#define DUAL_FUNC_2 LT(12, KC_F14)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -79,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [7] = LAYOUT_voyager(
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_MS_BTN3,     KC_TRANSPARENT, KC_TRANSPARENT, KC_MS_ACCEL2,   
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_MS_WH_UP,                                    KC_TRANSPARENT, KC_MS_BTN1,     KC_MS_BTN2,     KC_TRANSPARENT, KC_MS_WH_UP,    KC_MS_ACCEL1,   
-    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_MS_WH_DOWN,                                  KC_MS_LEFT,     KC_MS_DOWN,     KC_MS_UP,       KC_MS_RIGHT,    KC_MS_WH_DOWN,  KC_MS_ACCEL0,   
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_MS_BTN2,     KC_MS_BTN1,     KC_TRANSPARENT,                                 KC_MS_LEFT,     KC_MS_DOWN,     KC_MS_UP,       KC_MS_RIGHT,    KC_MS_WH_DOWN,  KC_MS_ACCEL0,   
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
                                                     KC_MS_BTN1,     KC_MS_BTN2,                                     KC_MS_BTN2,     KC_MS_BTN1
   ),
@@ -167,7 +167,7 @@ const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
 
     [6] = { {0,0,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,255}, {0,255,255}, {21,255,255}, {44,255,255}, {88,218,204}, {171,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {199,255,255}, {199,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,255,255}, {87,218,204}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
 
-    [7] = { {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {211,90,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {211,90,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {189,138,255}, {189,255,255}, {0,0,0}, {0,0,0}, {139,255,255}, {0,0,0}, {0,0,0}, {6,150,255}, {0,0,0}, {189,138,255}, {189,255,255}, {0,0,0}, {211,90,255}, {23,188,255}, {0,0,255}, {0,0,255}, {0,0,255}, {0,0,255}, {211,90,255}, {61,199,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {189,255,255}, {189,138,255} },
+    [7] = { {96,218,204}, {96,218,204}, {96,218,204}, {96,218,204}, {96,218,204}, {96,218,204}, {96,218,204}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {96,218,204}, {96,218,204}, {0,0,0}, {0,0,0}, {0,0,255}, {0,0,255}, {96,218,204}, {96,218,204}, {96,218,204}, {96,218,204}, {96,218,204}, {96,218,204}, {96,218,204}, {189,138,255}, {189,255,255}, {0,0,0}, {0,0,0}, {139,255,255}, {0,0,0}, {0,0,0}, {6,150,255}, {0,0,0}, {189,138,255}, {189,255,255}, {0,0,0}, {211,90,255}, {23,188,255}, {0,0,255}, {0,0,255}, {0,0,255}, {0,0,255}, {211,90,255}, {61,199,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {189,255,255}, {189,138,255} },
 
 };
 
