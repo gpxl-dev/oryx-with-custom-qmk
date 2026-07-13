@@ -22,9 +22,9 @@ enum tap_dance_codes {
   DANCE_4,
 };
 
-#define DUAL_FUNC_0 LT(14, KC_Y)
-#define DUAL_FUNC_1 LT(14, KC_1)
-#define DUAL_FUNC_2 LT(12, KC_F14)
+#define DUAL_FUNC_0 LT(11, KC_M)
+#define DUAL_FUNC_1 LT(4, KC_B)
+#define DUAL_FUNC_2 LT(8, KC_7)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
@@ -91,6 +91,7 @@ const uint16_t PROGMEM combo1[] = { KC_J, KC_K, COMBO_END};
 const uint16_t PROGMEM combo2[] = { ALL_T(KC_F), LT(3, KC_D), COMBO_END};
 const uint16_t PROGMEM combo3[] = { KC_K, KC_L, COMBO_END};
 const uint16_t PROGMEM combo4[] = { MT(MOD_LCTL, KC_S), LT(3, KC_D), COMBO_END};
+const uint16_t PROGMEM combo5[] = { MT(MOD_LSFT, KC_A), KC_RIGHT_SHIFT, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo0, KC_ESCAPE),
@@ -98,6 +99,7 @@ combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo2, LALT(KC_BSPC)),
     COMBO(combo3, KC_RIGHT_SHIFT),
     COMBO(combo4, KC_LEFT_SHIFT),
+    COMBO(combo5, LCTL(KC_F)),
 };
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
